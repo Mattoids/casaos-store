@@ -2,6 +2,7 @@ name: moviepilot
 services:
   moviepilot:
     image: jxxghp/moviepilot:latest
+    container_name: moviepilot
     network_mode: bridge
     ports:
       - target: 3000
