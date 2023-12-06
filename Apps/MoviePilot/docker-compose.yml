@@ -1,0 +1,301 @@
+name: moviepilot
+services:
+  moviepilot:
+    image: jxxghp/moviepilot:latest
+    network_mode: bridge
+    ports:
+      - target: 3000
+        published: "3000"
+        protocol: tcp
+      - target: 3001
+        published: "3001"
+        protocol: tcp
+    privileged: true
+    restart: always
+    volumes:
+      - type: bind
+        source: /DATA/AppData/moviepilot/config
+        target: /config
+      - type: bind
+        source: /DATA/AppData/moviepilot/qBittorrent/downloads
+        target: /media/downloads/qBittorrent
+      - type: bind
+        source: /DATA/AppData/moviepilot/transmission/downloads
+        target: /media/downloads/transmission
+      - type: bind
+        source: /DATA/AppData/moviepilot/moviepilot
+        target: /moviepilot
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+      - type: bind
+        source: /DATA/AppData/qbittorrent/config/data/BT_backup
+        target: /DATA/AppData/qbittorrent/config/data/BT_backup
+    environment:
+      # -------------------------------- 基础设置 --------------------------------
+      - TZ=Asia/Shanghai
+      - PUID=0
+      - PGID=0
+      # API服务端口，默认3001，可自行修改，不能与WEB服务端口冲突（仅支持环境变量配置）
+      - PORT=3001
+      # 掩码权限，默认000，可以考虑设置为022（仅支持环境变量配置）
+      - UMASK=000
+      # 重启更新，true/false，默认true
+      - MOVIEPILOT_AUTO_UPDATE=true
+      # 重启时更新到未发布的开发版本代码，true/false，默认false（仅支持环境变量配置）
+      - MOVIEPILOT_AUTO_UPDATE_DEV=false
+      # WEB服务端口，默认3000，可自行修改，不能与API服务端口冲突（仅支持环境变量配置）
+      - NGINX_PORT=3000
+
+      # -------------------------------- CookieCloud --------------------------------
+      # CookieCloud服务器地址，格式：http(s)://ip:port，不配置默认使用内建服务器https://movie-pilot.org/cookiecloud
+      - COOKIECLOUD_HOST=
+      # CookieCloud用户KEY
+      - COOKIECLOUD_KEY=
+      # CookieCloud端对端加密密码
+      - COOKIECLOUD_PASSWORD=
+      # CookieCloud同步间隔（分钟）
+      - COOKIECLOUD_INTERVAL=10
+      # CookieCloud保存Cookie对应的浏览器UA，建议配置，设置后可增加连接站点的成功率，同步站点后可以在管理界面中修改
+      - USER_AGENT=
+
+      # -------------------------------- 安全设置 --------------------------------
+      # 超级管理员用户名
+      - SUPERUSER=admin
+      # 超级管理员初始密码
+      - SUPERUSER_PASSWORD=password
+      #  API密钥，默认moviepilot
+      - API_TOKEN=moviepilot
+      - CONFIG_DIR=/config
+      # 登录首页电影海报，tmdb/bing，默认tmdb
+      - WALLPAPER=tmdb
+      # TMDB API地址，默认api.themoviedb.org，也可配置为api.tmdb.org或其它中转代理服务地址，能连通即可
+      - TMDB_API_DOMAIN=api.tmdb.org
+      # TMDB图片地址，默认image.tmdb.org，可配置为其它中转代理以加速TMDB图片显示，如：static-mdb.v.geilijiasu.com
+      - TMDB_IMAGE_DOMAIN=image.tmdb.org
+      # 网络代理（可选）
+      - PROXY_HOST=
+      #- HTTP_PROXY=
+      #- HTTPS_PROXY=
+      # -------------------------------- 刮削设置 --------------------------------
+      # 刮削入库的媒体文件，true/false，默认true
+      - SCRAP_METADATA=true
+      # SCRAP_SOURCE： 刮削元数据及图片使用的数据源，themoviedb/douban，默认themoviedb
+      - SCRAP_SOURCE=themoviedb
+      # 新增已入库媒体是否跟随TMDB信息变化，true/false，默认true
+      - SCRAP_FOLLOW_TMDB=true
+
+      # -------------------------------- 媒体库 --------------------------------
+      # 转移方式，支持link/copy/move/softlink
+      - TRANSFER_TYPE=link
+      # 媒体库目录
+      - LIBRARY_PATH=/media
+      # 电影媒体库目录名，默认电影
+      - LIBRARY_MOVIE_NAME=/media/电影
+      # 电视剧媒体库目录名，默认电视剧
+      - LIBRARY_TV_NAME=/media/电视剧
+      # 动漫媒体库目录名，默认电视剧/动漫
+      - LIBRARY_ANIME_NAME=/media/动漫
+      # 媒体库二级分类开关，true/false，默认false
+      - LIBRARY_CATEGORY=true
+
+      # -------------------------------- 相关依赖服务地址 --------------------------------
+      # OCR识别服务器地址
+      - OCR_HOST=https://movie-pilot.org
+      # 插件市场仓库地址，仅支持Github仓库main分支，多个地址使用,分隔，默认为官方插件仓库：https://github.com/jxxghp/MoviePilot-Plugins。
+      - PLUGIN_MARKET=https://github.com/jxxghp/MoviePilot-Plugins
+      # Github token，提高请求api限流阈值 ghp_****（仅支持环境变量配置）
+      - GITHUB_TOKEN=
+
+      # -------------------------------- 交互设置 --------------------------------
+      # 远程交互搜索时自动择优下载的用户ID，多个用户使用,分割，未设置需要选择资源或者回复0
+      #- AUTO_DOWNLOAD_USER=
+      # 消息通知渠道，支持 telegram/wechat/slack/synologychat，开启多个渠道时使用,分隔。同时还需要配置对应渠道的环境变量，非对应渠道的变量可删除，推荐使用telegram
+      - MESSAGER=
+
+      # wechat设置项
+      # WeChat企业ID
+      - WECHAT_CORPID=
+      # WeChat应用Secret
+      - WECHAT_APP_SECRET=
+      # WeChat应用ID
+      - WECHAT_APP_ID=
+      # WeChat消息回调的Token
+      - WECHAT_TOKEN=
+      # WeChat消息回调的Token
+      - WECHAT_ENCODING_AESKEY=
+      # WeChat代理服务器（后面不要加/）
+      - WECHAT_PROXY=
+      # WeChat管理员列表，多个管理员用英文逗号分隔（可选）
+      - WECHAT_ADMINS=
+
+      # synologychat设置项
+      # 在Synology Chat中创建机器人，获取机器人传入URL
+      - SYNOLOGYCHAT_WEBHOOK=
+      # SynologyChat机器人令牌
+      - SYNOLOGYCHAT_TOKEN=
+
+      # telegram设置项
+      # Telegram Bot Token
+      - TELEGRAM_TOKEN=
+      # Telegram Chat ID
+      - TELEGRAM_CHAT_ID=
+      # Telegram 用户ID，多个使用,分隔，只有用户ID在列表中才可以使用Bot，如未设置则均可以使用Bot
+      - TELEGRAM_USERS=
+      # Telegram Telegram 管理员ID，多个使用,分隔，只有管理员才可以操作Bot菜单，如未设置则均可以操作菜单（可选）
+      - TELEGRAM_ADMINS=
+
+      # slack设置项
+      # Slack Bot User OAuth Token
+      - SLACK_OAUTH_TOKEN=
+      # Slack App-Level Token
+      - SLACK_APP_TOKEN=
+      # Slack 频道名称，默认全体（可选）
+      - SLACK_CHANNEL=
+
+      # -------------------------------- 订阅设置 --------------------------------
+      # 订阅模式，rss/spider，默认spider，rss模式通过定时刷新RSS来匹配订阅（RSS地址会自动获取，也可手动维护），对站点压力小，同时可设置订阅刷新周期，24小时运行，但订阅和下载通知不能过滤和显示免费，推荐使用rss模式。
+      - SUBSCRIBE_MODE=rss
+      # RSS订阅模式刷新时间间隔（分钟），默认30分钟，不能小于5分钟。
+      - SUBSCRIBE_RSS_INTERVAL=30
+      # 订阅搜索，true/false，默认false，开启后会每隔24小时对所有订阅进行全量搜
+      - SUBSCRIBE_SEARCH=false
+      # 媒体信息搜索来源，themoviedb/douban，默认themoviedb
+      - SEARCH_SOURCE=themoviedb
+
+      # -------------------------------- 下载设置 --------------------------------
+      # 下载保存目录，注意：需要将moviepilot及下载器的映射路径保持一致，否则会导致下载文件无法转移
+      - DOWNLOAD_PATH=/media/downloads
+      # 电视剧下载保存目录路径，不设置则下载到DOWNLOAD_PATH
+      - DOWNLOAD_MOVIE_PATH=/media/downloads/qBittorrent/电影
+      # 电视剧下载保存目录路径，不设置则下载到DOWNLOAD_PATH
+      - DOWNLOAD_TV_PATH=/media/downloads/qBittorrent/电视剧
+      # 动漫下载保存目录路径，不设置则下载到DOWNLOAD_PATH
+      - DOWNLOAD_ANIME_PATH=/media/downloads/qBittorrent/动漫
+      # 下载二级分类开关，true/false，默认false
+      - DOWNLOAD_CATEGORY=false
+      # 下载站点字幕，true/false，默认true
+      - DOWNLOAD_SUBTITLE=true
+      # 下载器监控，true/false，默认为true，开启后下载完成时才会自动整理入库
+      - DOWNLOADER_MONITOR=true
+      # 刮削入库的媒体文件，true/false，默认true
+      - REFRESH_MEDIASERVER=true
+      # 种子标签，默认为MOVIEPILOT
+      - TORRENT_TAG=MOVIEPILOT
+      # 下载器，支持qbittorrent/transmission
+      - DOWNLOADER=qbittorrent
+      # qbittorrent地址，格式：ip:port，https需要添加https://前缀
+      - QB_HOST=
+      - QB_USER=
+      - QB_PASSWORD=
+      # qbittorrent分类自动管理，true/false，默认false，开启后会将下载二级分类传递到下载器，由下载器管理下载目录，需要同步开启DOWNLOAD_CATEGORY
+      - QB_CATEGORY=false
+      # qbittorrent按顺序下载，true/false，默认true
+      - QB_SEQUENTIAL=true
+      # qbittorrent忽略队列限制，强制继续，true/false，默认 false
+      - QB_FORCE_RESUME=false
+      # transmission地址，格式：ip:port，https需要添加https://前缀
+      - TR_HOST=
+      - TR_USER=
+      - TR_PASSWORD=
+
+      # -------------------------------- 播放器 --------------------------------
+      # 媒体服务器，支持emby/jellyfin/plex，同时开启多个使用,分隔。还需要配置对应媒体服务器的环境变量，非对应媒体服务器的变量可删除，推荐使用emby
+      - MEDIASERVER=
+      # Emby服务器地址，格式：ip:port，https需要添加https://前缀
+      - EMBY_HOST=
+      # Emby Api Key，在设置->高级->API密钥处生成
+      - EMBY_API_KEY=
+
+      # Jellyfin服务器地址，格式：ip:port，https需要添加https://前缀
+      - JELLYFIN_HOST=
+      # Jellyfin Api Key，在设置->高级->API密钥处生成
+      - JELLYFIN_API_KEY=
+
+      # Plex服务器地址，格式：ip:port，https需要添加https://前缀
+      - PLEX_HOST=
+      # Plex网页Url中的X-Plex-Token，通过浏览器F12->网络从请求URL中获取
+      - PLEX_TOKEN=
+
+      # 媒体服务器同步间隔（小时），默认6，留空则不同步
+      - MEDIASERVER_SYNC_INTERVAL=6
+      # 媒体服务器同步黑名单，多个媒体库名称使用,分割
+      - MEDIASERVER_SYNC_BLACKLIST=
+
+      # -------------------------------- 用户认证 --------------------------------
+      # 认证站点，支持iyuu/hhclub/audiences/hddolby/zmpt/freefarm/hdfans/wintersakura/leaves/1ptba/icc2022/ptlsp/xingtan/ptvicomo/agsvpt
+      - AUTH_SITE=
+
+      # -------------------------------- 进阶配置 --------------------------------
+      # 大内存模式，默认为false，开启后会占用更多的内存，但响应速度会更快
+      - BIG_MEMORY_MODE=false
+x-casaos:
+  ports:
+    - container: "3000"
+      description:
+        en_us: "Web interface access port"
+        zh_cn: "web界面访问端口"
+    - container: "3001"
+      description:
+        en_us: "API access port"
+        zh_cn: "API访问端口"
+  volumes:
+    - container: /config
+      description:
+        en_us: "Configuration file storage directory"
+        zh_cn: "配置文件存储目录"
+    - container: /media/downloads/qBittorrent
+      description:
+        en_us: "Media file storage directory"
+        zh_cn: "媒体文件存储目录"
+    - container: /media/downloads/transmission
+      description:
+        en_us: "Media file storage directory"
+        zh_cn: "媒体文件存储目录"
+    - container: /moviepilot
+      description:
+        en_us: "Browser kernel storage directory, mapped to prevent duplicate kernel downloads"
+        zh_cn: "浏览器内核存储目录，映射后可防止重复下载内核"
+    - container: /var/run/docker.sock
+      description:
+        en_us: ""
+        zh_cn: ""
+    - container: /DATA/AppData/qbittorrent/config/data/BT_backup
+      description:
+        en_us: "QBittorrent seed file storage directory"
+        zh_cn: "qBittorrent种子文件存储目录"
+  architectures:
+    - amd64
+  author: CasaOS User
+  category: unknown
+  description:
+    en_us: "This is an automated movie and video tracking service that can complete a series of movie and television resource management needs such as fully automated subscription, download, and scraping."
+    zh_cn: "这是一个影音自动化追剧服务，能够完成全自动化的订阅、下载、刮削等一系列的影视资源管理需求。"
+  developer: unknown
+  main: moviepilot
+  port_map: "3000"
+  scheme: http
+  tagline:
+    en_us: "NAS Media Library Automation Management Tool"
+    zh_cn: "NAS媒体库自动化管理工具"
+  thumbnail: ""
+  title:
+    en_us: moviepilot
+  icon: https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/MoviePilot/icon/logo.png
+  screenshot_link:
+    - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/MoviePilot/images/screenshot-1.png
+    - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/MoviePilot/images/screenshot-2.png
+    - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/MoviePilot/images/screenshot-3.png
+    - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/MoviePilot/images/screenshot-4.png
+    - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/MoviePilot/images/screenshot-5.png
+    - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/MoviePilot/images/screenshot-6.png
+  tips:
+    before_install:
+      en_us: |
+        | username | password |
+        | -------- | -------- |
+        | `admin` | `password` |
+      zh_cn: |
+        | 用户名 | 密码 |
+        | -------- | -------- |
+        | `admin` | `password` |

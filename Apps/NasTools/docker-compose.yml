@@ -1,0 +1,76 @@
+name: nastools
+services:
+  nastools:
+    image: mattoids/nas-tools:latest
+    container_name: nastools
+    privileged: true
+    restart: always
+    volumes:
+      # 配置目录
+      - /DATA/AppData/nastool/config:/config
+      # 媒体目录
+      - /DATA/AppData/nastool/media:/media
+      # qb种子目录，转移做种需要用到
+      - /DATA/AppData/qbittorrent/config/data/BT_backup:/BT_backup
+    ports:
+      - target: 3000
+        published: "3000"
+        protocol: tcp
+    environment:
+      - TZ=Asia/Shanghai
+    network_mode: bridge
+    x-casaos:
+      ports:
+        - container: "3000"
+          description:
+            en_us: "Web interface access port"
+            zh_cn: "web界面访问端口"
+      volumes:
+        - container: /config
+          description:
+            en_us: "Configuration file storage directory"
+            zh_cn: "配置文件存储目录"
+        - container: /media
+          description:
+            en_us: "Media file storage directory"
+            zh_cn: "媒体文件存储目录"
+        - container: /BT_backup
+          description:
+            en_us: "QBittorrent seed file storage directory"
+            zh_cn: "qBittorrent种子文件存储目录"
+x-casaos:
+  architectures:
+    - amd64
+  author: CasaOS User
+  category: unknown
+  description:
+    en_us: "This is a video file collection and organization tool that supports automated downloading, scraping, subscription, and other functions. Create your own personalized film and television center."
+    zh_cn: "这是一个影音文件归集整理工具，支持自动化下载、刮削、订阅等功能。打造属于你自己的个性化影视中心。"
+  developer: unknown
+  icon: https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/NasTools/icon/logo.png
+  screenshot_link:
+    - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/NasTools/images/screenshot-1.png
+    - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/NasTools/images/screenshot-2.png
+    - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/NasTools/images/screenshot-3.png
+    - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/NasTools/images/screenshot-4.png
+    - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/NasTools/images/screenshot-5.png
+    - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/NasTools/images/screenshot-6.png
+  main: nastools
+  port_map: "3000"
+  scheme: http
+  tagline:
+    en_us: "Automated tools for NAS media library resource collection and organization"
+    zh_cn: "NAS媒体库资源归集、整理自动化工具"
+  thumbnail: ""
+  tips:
+    before_install:
+      en_us: |
+        | username | password |
+        | -------- | -------- |
+        | `admin` | `password` |
+      zh_cn: |
+        | 用户名 | 密码 |
+        | -------- | -------- |
+        | `admin` | `password` |
+  title:
+    en_us: nastools
