@@ -8,10 +8,10 @@ services:
     restart: always
     privileged: true
     volumes:
-      - /home/liufei/docker/sun-panel/conf:/app/conf
-      - /home/liufei/docker/sun-panel/runtime:/app/runtime
-      - /home/liufei/docker/sun-panel/uploads:/app/uploads
-      - /home/liufei/docker/sun-panel/database:/app/database
+      - /DATA/AppData/sun-panel/conf:/app/conf
+      - /DATA/AppData/sun-panel/runtime:/app/runtime
+      - /DATA/AppData/sun-panel/uploads:/app/uploads
+      - /DATA/AppData/sun-panel/database:/app/database
     ports:
       - 3002:3002
 
@@ -21,23 +21,23 @@ x-casaos:
   author: CasaOS User
   category: unknown
   description:
-    en_us: "This is a video file collection and organization tool that supports automated downloading, scraping, subscription, and other functions. Create your own personalized film and television center."
-    zh_cn: "这是一个影音文件归集整理工具，支持自动化下载、刮削、订阅等功能。打造属于你自己的个性化影视中心。"
+    en_us: ""
+    zh_cn: ""
   developer: unknown
-  icon: https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/NasTools/icon/logo.png
+  icon: https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/SunPanel/icon/logo.png
   screenshot_link:
-    - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/NasTools/images/screenshot-1.png
-    - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/NasTools/images/screenshot-2.png
-    - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/NasTools/images/screenshot-3.png
-    - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/NasTools/images/screenshot-4.png
-    - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/NasTools/images/screenshot-5.png
-    - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/NasTools/images/screenshot-6.png
+    - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/SunPanel/images/screenshot-1.png
+    - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/SunPanel/images/screenshot-2.png
+    - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/SunPanel/images/screenshot-3.png
+    - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/SunPanel/images/screenshot-4.png
+    - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/SunPanel/images/screenshot-5.png
+    - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/SunPanel/images/screenshot-6.png
   main: Sun-Panel
   port_map: "3002"
   scheme: http
   tagline:
-    en_us: "Automated tools for NAS media library resource collection and organization"
-    zh_cn: "NAS媒体库资源归集、整理自动化工具"
+    en_us: ""
+    zh_cn: ""
   thumbnail: ""
   tips:
     before_install:
