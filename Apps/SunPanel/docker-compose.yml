@@ -1,8 +1,8 @@
-name: SunPanel
+name: sunpanel
 services:
-  sun-panel:
+  sunpanel:
     image: hslr/sun-panel:latest
-    container_name: sun-panel
+    container_name: sunpanel
     tty: true
     # 自动启动
     restart: always
@@ -23,18 +23,18 @@ x-casaos:
   author: CasaOS User
   category: WEB
   description:
-    en_us: ""
-    zh_cn: ""
+    en_us: "A server, NAS navigation panel, Homepage, browser homepage."
+    zh_cn: "一个服务器、NAS导航面板、Homepage、浏览器首页。"
   developer: mattoid
   icon: https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/SunPanel/icon/logo.png
   screenshot_link:
-    - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/SunPanel/images/screenshot-1.png
+    - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/SunPanel/images/screenshot-1.jpg
     - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/SunPanel/images/screenshot-2.png
-    - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/SunPanel/images/screenshot-3.png
+    - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/SunPanel/images/screenshot-3.jpg
     - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/SunPanel/images/screenshot-4.png
     - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/SunPanel/images/screenshot-5.png
     - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/SunPanel/images/screenshot-6.png
-  main: SunPanel
+  main: sunpanel
   port_map: "3002"
   scheme: http
   tagline:
