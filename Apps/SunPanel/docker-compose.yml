@@ -1,4 +1,4 @@
-name: Sun-Panel
+name: SunPanel
 services:
   sun-panel:
     image: hslr/sun-panel:latest
@@ -7,6 +7,7 @@ services:
     # 自动启动
     restart: always
     privileged: true
+    network_mode: bridge
     volumes:
       - /DATA/AppData/sun-panel/conf:/app/conf
       - /DATA/AppData/sun-panel/runtime:/app/runtime
@@ -20,11 +21,11 @@ x-casaos:
   architectures:
     - amd64
   author: CasaOS User
-  category: unknown
+  category: WEB
   description:
     en_us: ""
     zh_cn: ""
-  developer: unknown
+  developer: mattoid
   icon: https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/SunPanel/icon/logo.png
   screenshot_link:
     - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/SunPanel/images/screenshot-1.png
@@ -33,7 +34,7 @@ x-casaos:
     - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/SunPanel/images/screenshot-4.png
     - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/SunPanel/images/screenshot-5.png
     - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/SunPanel/images/screenshot-6.png
-  main: Sun-Panel
+  main: SunPanel
   port_map: "3002"
   scheme: http
   tagline:
@@ -51,4 +52,4 @@ x-casaos:
         | -------- | -------- |
         | `admin@sun.cc` | `12345678` |
   title:
-    en_us: Sun-Panel
+    en_us: SunPanel

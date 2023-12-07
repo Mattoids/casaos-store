@@ -268,11 +268,11 @@ x-casaos:
   architectures:
     - amd64
   author: CasaOS User
-  category: unknown
+  category: WEB
   description:
     en_us: "This is an automated movie and video tracking service that can complete a series of movie and television resource management needs such as fully automated subscription, download, and scraping."
     zh_cn: "这是一个影音自动化追剧服务，能够完成全自动化的订阅、下载、刮削等一系列的影视资源管理需求。"
-  developer: unknown
+  developer: mattoid
   main: moviepilot
   port_map: "3000"
   scheme: http
