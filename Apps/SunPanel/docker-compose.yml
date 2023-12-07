@@ -1,4 +1,4 @@
-name: 'Sun-Panel'
+name: Sun-Panel
 services:
   sun-panel:
     image: hslr/sun-panel:latest
@@ -14,7 +14,8 @@ services:
       - /DATA/AppData/sun-panel/database:/app/database
     ports:
       - 3002:3002
-
+    environment:
+      - TZ=Asia/Shanghai
 x-casaos:
   architectures:
     - amd64
@@ -36,8 +37,8 @@ x-casaos:
   port_map: "3002"
   scheme: http
   tagline:
-    en_us: ""
-    zh_cn: ""
+    en_us: "A server, NAS navigation panel, Homepage, browser homepage."
+    zh_cn: "一个服务器、NAS导航面板、Homepage、浏览器首页。"
   thumbnail: ""
   tips:
     before_install:
