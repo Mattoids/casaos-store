@@ -1,0 +1,35 @@
+name: it-tools
+services:
+  it-tools:
+    container_name: it-tools
+    image: qingfeng2336/it-tools:latest
+    privileged: true
+    restart: unless-stopped
+    ports:
+      - 80:80
+    network_mode: bridge
+x-casaos:
+  architectures:
+    - amd64
+  author: CasaOS User
+  category: self
+  description:
+    en_us: "A container-based solution for automating Docker container base image updates."
+    zh_cn: "基于容器的解决方案，用于自动执行 Docker 容器基础映像更新。"
+  developer: mattoid
+  icon: https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/ItTools/icon/logo.png
+  screenshot_link:
+    - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/ItTools/images/screenshot-1.png
+    - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/ItTools/images/screenshot-2.png
+    - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/ItTools/images/screenshot-3.png
+    - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/ItTools/images/screenshot-4.png
+    - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/ItTools/images/screenshot-5.png
+  index: /
+  tagline:
+    en_us: "A container-based solution for automating Docker container base image updates."
+    zh_cn: "基于容器的解决方案，用于自动执行 Docker 容器基础映像更新。"
+  store_app_id: it-tools
+  port_map: "80"
+  scheme: http
+  title:
+    custom: it-tools

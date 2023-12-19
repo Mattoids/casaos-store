@@ -1,0 +1,41 @@
+name: watchtower
+services:
+  watchtower:
+    cpu_shares: 90
+    command: []
+    container_name: watchtower
+    deploy:
+      resources:
+        limits:
+          memory: 15813M
+    image: containrrr/watchtower:latest
+    privileged: true
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+    ports: []
+    devices: []
+    cap_add: []
+    environment: []
+    network_mode: bridge
+x-casaos:
+  architectures:
+    - amd64
+  author: CasaOS User
+  category: self
+  description:
+    en_us: "A container-based solution for automating Docker container base image updates."
+    zh_cn: "基于容器的解决方案，用于自动执行 Docker 容器基础映像更新。"
+  hostname: ""
+  icon: http://mattoid.cn:19999/watchtower.png
+  index: /
+  port_map: ""
+  tagline:
+    en_us: "A container-based solution for automating Docker container base image updates."
+    zh_cn: "基于容器的解决方案，用于自动执行 Docker 容器基础映像更新。"
+  scheme: http
+  store_app_id: watchtower
+  title:
+    custom: watchtower
