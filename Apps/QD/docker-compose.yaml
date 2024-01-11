@@ -1,0 +1,57 @@
+name: qd
+services:
+  qd:
+    container_name: qd
+    depends_on:
+      redis:
+        condition: service_started
+        required: true
+    environment:
+      - AES_KEY=binux
+      - COOKIE_SECRET=binux
+      - DOMAIN=
+      - PBKDF2_ITERATIONS=400
+      - REDISCLOUD_URL=redis://redis:6379
+    image: qdtoday/qd:latest
+    ports:
+      - target: 80
+        published: "8923"
+        protocol: tcp
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /DATA/AppData/qd/config
+        target: /usr/src/app/config
+    network_mode: bridge
+    privileged: false
+  redis:
+    container_name: redis
+    image: redis:alpine
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /DATA/AppData/redis/data
+        target: /data
+    network_mode: bridge
+    privileged: false
+x-casaos:
+  architectures:
+    - amd64
+  author: CasaOS User
+  category: WEB
+  description:
+    en_us: "A web framework for automatic execution of HTTP scheduled tasks"
+    zh_cn: "一个 HTTP 定时任务自动执行 Web 框架"
+  developer: mattoid
+  icon: https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/qd/icon/logo.png
+  screenshot_link:
+    - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/qd/images/qd-1.png
+    - https://cdn.jsdelivr.net/gh/Mattoids/casaos-store@master/Apps/qd/images/qd-2.png
+  port_map: "8923"
+  tagline:
+    en_us: "A web framework for automatic execution of HTTP scheduled tasks"
+    zh_cn: "一个 HTTP 定时任务自动执行 Web 框架"
+  scheme: http
+  store_app_id: qd
+  title:
+    custom: qd
