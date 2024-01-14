@@ -1,15 +1,7 @@
 name: nginxproxymanagerzh
 services:
-  nginxproxymanager:
-    cpu_shares: 90
-    command: []
+  nginxproxymanagerzh:
     container_name: nginxproxymanagerzh
-    deploy:
-      resources:
-        limits:
-          memory: 15813M
-        reservations:
-          memory: "134217728"
     image: chishin/nginx-proxy-manager-zh:release
     labels:
       icon: https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/NginxProxyManager/icon.png
@@ -54,9 +46,6 @@ services:
           description:
             en_us: Nginx Proxy Manager letsencrypt directory.
             zh_cn: Nginx 代理管理器 letsencrypt 目录。
-    devices: []
-    cap_add: []
-    environment: []
     network_mode: bridge
     privileged: false
 x-casaos:
@@ -153,6 +142,5 @@ x-casaos:
         | -------- | -------- |
         | `admin@example.com` | `changeme` |
   title:
-    custom: ""
     en_us: Nginx Proxy Manager Zh
     zh_cn: Nginx 代理管理器【中文】
