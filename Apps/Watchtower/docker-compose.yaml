@@ -25,6 +25,7 @@ x-casaos:
     - amd64
   author: CasaOS User
   category: self
+  developer: Mattoid
   description:
     en_us: "A container-based solution for automating Docker container base image updates."
     zh_cn: "基于容器的解决方案，用于自动执行 Docker 容器基础映像更新。"
