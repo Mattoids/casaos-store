@@ -57,39 +57,43 @@ services:
       # 配置AUTH_SITE后，需要根据下表配置对应站点的认证参数，认证资源v1.1.1支持
       # iyuu/hhclub/audiences/hddolby/zmpt/freefarm/hdfans/wintersakura/leaves/ptba：1ptba /icc2022/ptlsp/xingtan/ptvicomo/agsvpt
       - AUTH_SITE=
-	  # 自动更新
+      # 自动更新
       - MOVIEPILOT_AUTO_UPDATE=release
-	  # 超级管理员
+      # 超级管理员
       - SUPERUSER=admin
-	  # API密钥，默认moviepilot，在媒体服务器Webhook、微信回调等地址配置中需要加上?token=该值，建议修改为复杂字符串
+      # API密钥，默认moviepilot，在媒体服务器Webhook、微信回调等地址配置中需要加上?token=该值，建议修改为复杂字符串
       - API_TOKEN=moviepilot
-	  # 大内存模式，默认为false，开启后会增加缓存数量，占用更多的内存，但响应速度会更快
+      # 大内存模式，默认为false，开启后会增加缓存数量，占用更多的内存，但响应速度会更快
       - BIG_MEMORY_MODE=false
-	  # Github token，提高自动更新、插件安装等请求Github Api的限流阈值，格式：ghp_****
+      # Github token，提高自动更新、插件安装等请求Github Api的限流阈值，格式：ghp_****
       - GITHUB_TOKEN=
-	  # 启动时自动检测和更新资源包（站点索引及认证等），true/false，默认true，需要能正常连接Github，仅支持Docker镜像
+      # 启动时自动检测和更新资源包（站点索引及认证等），true/false，默认true，需要能正常连接Github，仅支持Docker镜像
       - AUTO_UPDATE_RESOURCE=true
-	  # TMDB API地址，默认api.themoviedb.org，也可配置为api.tmdb.org、tmdb.movie-pilot.org 或其它中转代理服务地址，能连通即可
+      # TMDB API地址，默认api.themoviedb.org，也可配置为api.tmdb.org、tmdb.movie-pilot.org 或其它中转代理服务地址，能连通即可
       - TMDB_API_DOMAIN=api.themoviedb.org
-	  # MDB图片地址，默认image.tmdb.org，可配置为其它中转代理以加速TMDB图片显示，如：static-mdb.v.geilijiasu.com
+      # MDB图片地址，默认image.tmdb.org，可配置为其它中转代理以加速TMDB图片显示，如：static-mdb.v.geilijiasu.com
       - TMDB_IMAGE_DOMAIN=image.tmdb.org
-	  # 登录首页电影海报，tmdb/bing，默认tmdb
+      # 登录首页电影海报，tmdb/bing，默认tmdb
       - WALLPAPER=tmdb
-	  # 媒体信息识别来源，themoviedb/douban，默认themoviedb，使用douban时不支持二级分类
+      # 媒体信息识别来源，themoviedb/douban，默认themoviedb，使用douban时不支持二级分类
       - RECOGNIZE_SOURCE=themoviedb
-	  # Fanart开关，true/false，默认true，关闭后刮削的图片类型会大幅减少
+      # Fanart开关，true/false，默认true，关闭后刮削的图片类型会大幅减少
       - FANART_ENABLE=true
-	  # 刮削元数据及图片使用的数据源，themoviedb/douban，默认themoviedb
+      # 刮削元数据及图片使用的数据源，themoviedb/douban，默认themoviedb
       - SCRAP_SOURCE=themoviedb
-	  # 新增已入库媒体是否跟随TMDB信息变化，true/false，默认true，为false时即使TMDB信息变化了也会仍然按历史记录中已入库的信息进行刮削
+      # 新增已入库媒体是否跟随TMDB信息变化，true/false，默认true，为false时即使TMDB信息变化了也会仍然按历史记录中已入库的信息进行刮削
       - SCRAP_FOLLOW_TMDB=true
-	  # OCR识别服务器地址，格式：http(s)://ip:port，用于识别站点验证码实现自动登录获取Cookie等，不配置默认使用内建服务器https://movie-pilot.org，可使用 这个镜像 自行搭建。
+      # OCR识别服务器地址，格式：http(s)://ip:port，用于识别站点验证码实现自动登录获取Cookie等，不配置默认使用内建服务器https://movie-pilot.org，可使用 这个镜像 自行搭建。
       - OCR_HOST=https://movie-pilot.org
-	  # 下载站点字幕，true/false，默认true
+      # 下载站点字幕，true/false，默认true
       - DOWNLOAD_SUBTITLE=true
-	  # 插件市场仓库地址，仅支持Github仓库main分支，多个地址使用,分隔，默认为官方插件仓库：https://github.com/jxxghp/MoviePilot-Plugins ，通过查看MoviePilot-Plugins项目的fork，或者查看频道置顶了解更多第三方插件仓库。
+      # 插件市场仓库地址，仅支持Github仓库main分支，多个地址使用,分隔，默认为官方插件仓库：https://github.com/jxxghp/MoviePilot-Plugins ，通过查看MoviePilot-Plugins项目的fork，或者查看频道置顶了解更多第三方插件仓库。
       - PLUGIN_MARKET=https://github.com/jxxghp/MoviePilot-Plugins
-x-casaos:
+https://mattoid:
+  oss-cn-hangzhou:
+    aliyuncs:
+      com/casos/casaos-store:
+        zip:x-casaos:
   ports:
     - container: "3000"
       description:
