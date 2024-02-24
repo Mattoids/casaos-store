@@ -32,9 +32,6 @@ services:
       - type: bind
         source: /DATA/AppData/qbittorrent/config/data/BT_backup
         target: /DATA/AppData/qbittorrent/config/data/BT_backup
-      - type: bind
-        source: /DATA/AppData/moviepilot/plugins
-        target: /app/app/plugins
     environment:
       - TZ=Asia/Shanghai
       - PUID=0
@@ -122,10 +119,6 @@ x-casaos:
       description:
         en_us: "QBittorrent seed file storage directory"
         zh_cn: "qBittorrent种子文件存储目录"
-    - container: /app/app/plugins
-      description:
-        en_us: "Plugin directory, used to solve bugs where plugins cannot be downloaded properly"
-        zh_cn: "插件目录，用于解决插件无法正常下载的BUG"
   architectures:
     - amd64
   author: CasaOS User
