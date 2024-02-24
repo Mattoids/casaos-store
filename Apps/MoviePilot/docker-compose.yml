@@ -56,7 +56,7 @@ services:
       # 认证站点（认证通过后才能使用站点相关功能），支持配置多个认证站点，使用,分隔，如：iyuu,hhclub，会依次执行认证操作，直到有一个站点认证成功。
       # 配置AUTH_SITE后，需要根据下表配置对应站点的认证参数，认证资源v1.1.1支持
       # iyuu/hhclub/audiences/hddolby/zmpt/freefarm/hdfans/wintersakura/leaves/ptba：1ptba /icc2022/ptlsp/xingtan/ptvicomo/agsvpt
-      - AUTH_SITE=
+      - AUTH_SITE=iyuu,hhclub,audiences,hddolby,zmpt,freefarm,hdfans,wintersakura,leaves,ptba,icc2022,ptlsp,xingtan,ptvicomo,agsvpt,hdkyl
       # 自动更新
       - MOVIEPILOT_AUTO_UPDATE=release
       # 超级管理员
@@ -67,8 +67,6 @@ services:
       - BIG_MEMORY_MODE=false
       # Github token，提高自动更新、插件安装等请求Github Api的限流阈值，格式：ghp_****
       - GITHUB_TOKEN=
-      # 启动时自动检测和更新资源包（站点索引及认证等），true/false，默认true，需要能正常连接Github，仅支持Docker镜像
-      - AUTO_UPDATE_RESOURCE=true
       # TMDB API地址，默认api.themoviedb.org，也可配置为api.tmdb.org、tmdb.movie-pilot.org 或其它中转代理服务地址，能连通即可
       - TMDB_API_DOMAIN=api.themoviedb.org
       # MDB图片地址，默认image.tmdb.org，可配置为其它中转代理以加速TMDB图片显示，如：static-mdb.v.geilijiasu.com
@@ -89,11 +87,7 @@ services:
       - DOWNLOAD_SUBTITLE=true
       # 插件市场仓库地址，仅支持Github仓库main分支，多个地址使用,分隔，默认为官方插件仓库：https://github.com/jxxghp/MoviePilot-Plugins ，通过查看MoviePilot-Plugins项目的fork，或者查看频道置顶了解更多第三方插件仓库。
       - PLUGIN_MARKET=https://github.com/jxxghp/MoviePilot-Plugins
-https://mattoid:
-  oss-cn-hangzhou:
-    aliyuncs:
-      com/casos/casaos-store:
-        zip:x-casaos:
+x-casaos:
   ports:
     - container: "3000"
       description:
